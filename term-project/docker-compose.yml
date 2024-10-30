@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  coreui:
+    image: coreui:0.1
+    container_name: coreui
+    ports:
+      - "443:443"
+    networks:
+      - internal_network
+
+  endpoint-api:
+    image: endpoint-api:0.1
+    container_name: endpoint-api
+    ports:
+      - "5000:5000"
+      - "5101:5101"
+    networks:
+      - internal_network
+
+  mssql:
+    image: mssql:0.1
+    container_name: mssql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Sa@2024%"
+    ports:
+      - "1433:1433"
+    networks:
+      - internal_network
+
+  mongodb:
+    image: mongodb:0.1
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - internal_network
+
+  parse-server-api:
+    image: parse-server-api:0.1
+    container_name: parse-server-api
+    ports:
+      - "4100:4100"
+      - "4101:4101"
+    networks:
+      - internal_network
+
+networks:
+  internal_network:
+    driver: bridge
